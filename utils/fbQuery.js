@@ -3,11 +3,11 @@ const Firebird = require('node-firebird');
 const getDB = (req) => {
   return new Promise((resolve, reject) => {
     var options = {};
-    options.host = req.body.connection.host;
-    options.port = req.body.connection.port;
+    options.host = req.body.connection.host || "localhost";
+    options.port = req.body.connection.port || 3050;
     options.database = req.body.connection.database;
-    options.user = 'SYSDBA';
-    options.password = 'masterkey';
+    options.user = req.body.connection.username || "SYSDBA";
+    options.password = req.body.connection.password || "masterkey";
     options.lowercase_keys = false; // set to true to lowercase keys
     options.role = null;            // default
     options.pageSize = 4096;        // default when creating database
